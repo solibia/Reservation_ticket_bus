@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Echec</title>
+    <th:block th:include="fragments/headerinc2 :: head"></th:block> 
+
+</head>
+<body>
+<div class="container">
+    <th:block th:include="fragments/header2 :: header"></th:block>
+     
+    <form  th:object="${voyage}" >
+    	<div >
+        <h2>Aucune reservation ne correspond a votre recherche</h2>
+            <div class="row">
+                <a th:href="@{/reservations}"  class="btn btn-default">Quitter</a>
+            </div>   
+    	</div>
+     </form>             
+</div>
+
+</body>
+</html>

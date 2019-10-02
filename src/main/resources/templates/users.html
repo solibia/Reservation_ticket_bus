@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+<title>Spring Boot Exemple</title>
+
+<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+<style>
+body {
+	background-image: url("/images/bg_1.jpg");
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+		<div class="panel-purple" th:if="${not #lists.isEmpty(users)} ">
+			<h2>Liste des utilisateurs</h2>
+			<a class="btn btn-primary" href="#" th:href="@{/user/new}">Nouveau</a>
+			<h2></h2>
+			<table class="table table-striped">
+				<tr>
+					<th th:with="inc=1">No</th>
+					<th>Nom</th>
+					<th>Tel</th>
+					<th>Email</th>
+					<th>View</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr>
+				<tr th:each="user,itrStat : ${users}"
+					th:class="${itrStat.even}? 'even_css_class':'odd_css_class'">
+					<td th:text="${itrStat.index + 1}"></td>
+					<td th:text="${user.nom}">Nom</td>
+					<td th:text="${user.tel}">Tel</td>
+					<td th:text="${user.email}">Email</td>
+					<td><a th:href="${'/user/' + user.iduser}">View</a></td>
+					<td><a th:href="${'/user/edit/' + user.iduser}">Edit</a></td>
+					<td><a th:href="${'/user/delete/' + user.iduser}">Delete</a></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+</body>
+</html>

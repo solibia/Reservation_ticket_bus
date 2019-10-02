@@ -1,0 +1,14 @@
+.panel-purple {
+	background: #eee;
+	border-color: #eee;
+}
+
+.panel-purple .panel-heading {
+	border-color: #eee;
+	background: #eee;
+	color: #fff;
+}
+
+.panel-purple .panel-body a {
+	color: #eee;
+}

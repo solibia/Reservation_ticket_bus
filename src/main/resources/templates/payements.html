@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Spring Boot Exemple</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+<style>
+body {
+	background-image: url("/images/bg_1.jpg");
+	background-position: 50% 50%;
+	background-repeat: repeat;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    <div class="panel-purple" th:if="${not #lists.isEmpty(payements)} ">
+        <h2>Liste des reservations confirmees</h2>
+        <table class="table table-striped">
+            <tr th:with="cpt=0" >
+            
+                <th th:with="inc=1">No</th> 
+                <th>Date</th>
+                <th>Depart</th>
+                <th>Arrive</th>
+                <th>Prix</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Contact</th>
+                <th>Payer</th>                
+            </tr>
+      		<tr th:each="payement,itrStat : ${payements}" th:class="${itrStat.even}? 'even_css_class':'odd_css_class'">            
+                <td th:text="${itrStat.index + 1}"></td>
+                <td th:text="${#dates.format(payement.reservation.voyage.datDep, 'dd-MM-yyyy')}"></td>                
+                <td th:text="${payement.reservation.voyage.vDep.libelle}">Depart</td>
+                <td th:text="${payement.reservation.voyage.vAriv.libelle}">Arrive</td>
+                <td th:text="${payement.reservation.voyage.prix}">prix</td>
+                <td th:text="${payement.reservation.client.nom}">Nom</td>
+                <td th:text="${payement.reservation.client.prenom}">Prenom</td>
+                <td th:text="${payement.reservation.client.tel}">Contact</td>
+                <td><a th:href="${'/payementshow/'+ payement.idpaye}">Detail</a></td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>

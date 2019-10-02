@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+<title>Spring Boot Exemple</title>
+<th:block th:include="fragments/headerinc2 :: head"></th:block>
+
+<style>
+body {
+	background-image: url("/images/bg_1.jpg");
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<th:block th:include="fragments/header2 :: header"></th:block>
+
+		<form th:object="${reservation}" th:action="@{/reservation}"
+			method="post">
+
+			<div class="panel-purple">
+				<div class="row">
+					<div class="col-lg-5">
+						<div class="form-group col-lg-10">
+							<h2>Reservation du voyage:</h2>
+						</div>
+					</div>
+				</div>
+
+				<table class="table table-striped">
+					<tr>
+						<th>Depart</th>
+						<th>Arrive</th>
+						<th>Date depart</th>
+						<th>Heure depart</th>
+						<th>Prix</th>
+					</tr>
+					<tr>
+						<td th:text="${reservation.voyage.vDep.libelle}">Depart</td>
+						<td th:text="${reservation.voyage.vAriv.libelle}">Arrive</td>
+						<td
+							th:text="${#dates.format(reservation.voyage.datDep, 'dd-MM-yyyy')}"></td>
+						<td
+							th:text="${#dates.format(reservation.voyage.heureDep, 'HH:mm')}"></td>
+						<td th:text="${reservation.voyage.prix}">prix</td>
+					</tr>
+				</table>
+
+				<div class="row">
+					<div class="col-lg-5">
+						<div class="form-group col-lg-10">
+							<h2>Informations sur le client:</h2>
+						</div>
+					</div>
+				</div>
+				<input type="hidden" th:field="${reservation.voyage.idvoyage}" /> <input
+					type="hidden" th:field="${reservation.voyage.datDep}" /> <input
+					type="hidden" th:field="${reservation.voyage.heureDep}" /> <input
+					type="hidden" th:field="${reservation.voyage.vDep.id}" /> <input
+					type="hidden" th:field="${reservation.voyage.vDep.libelle}" /> <input
+					type="hidden" th:field="${reservation.voyage.vAriv.id}" /> <input
+					type="hidden" th:field="${reservation.voyage.vAriv.libelle}" /> <input
+					type="hidden" th:field="${reservation.voyage.prix}" />
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Nom:</label>
+					<div class="col-sm-10">
+						<input type="text" required="required" class="form-control"
+							th:field="${reservation.client.nom}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Prenom:</label>
+					<div class="col-sm-10">
+						<input type="text" required="required" class="form-control"
+							th:field="${reservation.client.prenom}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Tel:</label>
+					<div class="col-sm-10">
+						<input type="text" required="required" class="form-control"
+							th:field="${reservation.client.tel}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Email:</label>
+					<div class="col-sm-10">
+						<input type="text" required="required" class="form-control"
+							th:field="${reservation.client.email}" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-5">
+						<div class="form-group col-lg-10">
+							<button type="submit" class="btn btn-default">Enregistrer</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</form>
+	</div>
+
+</body>
+</html>

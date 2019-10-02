@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+<title>Spring Boot Exemple</title>
+<style>
+body {
+	background-image: url("/images/bg_1.jpg");
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+</style>
+
+<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+	<div class="container">
+		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+		<div class="panel-purple" th:if="${not #lists.isEmpty(reservations)} ">
+			<form class="form-horizontal" th:object="${unreservation}"
+				th:action="@{/reserv}" method="post">
+
+				<h2>Liste des reservations</h2>
+
+				<div class="col-lg-5">
+					<div class="form-group col-lg-10">
+						<div class="col-sm-10">
+							<label class="control-label">No reservation:</label> <input type="number" required="required" class="form-control"
+								th:field="${unreservation.libelle} " />
+                <button type="submit" class="btn btn-default">Rechercher</button>
+								
+						</div>
+						
+					</div>
+				</div>
+			</form>
+
+			<table class="table table-striped">
+				<tr th:with="cpt=0">
+
+					<th th:with="inc=1">No</th>
+					<th>Depart</th>
+					<th>Arrive</th>
+					<th>Date</th>
+					<th>Heure</th>					
+					<th>Prix</th>
+					<th>Nom</th>
+					<th>Prenom</th>
+					<th>Contact</th>
+					<th>Payer</th>
+				</tr>
+				<tr th:each="reservation,itrStat : ${reservations}"
+					th:class="${itrStat.even}? 'even_css_class':'odd_css_class'">
+					<td th:text="${itrStat.index + 1}"></td>
+					<td th:text="${reservation.voyage.vDep.libelle}">Depart</td>
+					<td th:text="${reservation.voyage.vAriv.libelle}">Arrive</td>
+					<td	th:text="${#dates.format(reservation.voyage.datDep, 'dd-MM-yyyy')}"></td>
+					<td	th:text="${#dates.format(reservation.voyage.heureDep, 'HH:mm')}"></td>					
+					<td th:text="${reservation.voyage.prix}">prix</td>
+					<td th:text="${reservation.client.nom}">Nom</td>
+					<td th:text="${reservation.client.prenom}">Prenom</td>
+					<td th:text="${reservation.client.tel}">Contact</td>
+					<td><a th:href="${'/payement/'+ reservation.idreservation}">Confirmer</a></td>
+				</tr>
+			</table>
+
+		</div>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+<title>Spring Boot Exemple</title>
+<th:block th:include="fragments/headerinc :: head"></th:block>
+<style>
+body {
+	background-image: url("/images/bg_1.jpg");
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<th:block th:include="fragments/header :: header"></th:block>
+
+		<form th:object="${payement}" th:action="@{/payement}" method="post">
+			<div class="panel-purple">
+				<h2>Confirmation de reservation:</h2>
+				<table class="table table-striped">
+					<tr>
+						<th>Depart</th>
+						<th>Arrive</th>
+						<th>Date Heure depart</th>
+						<th>Prix</th>
+					</tr>
+					<tr>
+						<td th:text="${payement.reservation.voyage.vDep.libelle}">Depart</td>
+						<td th:text="${payement.reservation.voyage.vAriv.libelle}">Arrive</td>
+						<td
+							th:text="${#dates.format(payement.reservation.voyage.datDep, 'dd-MM-yyyy')} +' a '+ ${#dates.format(payement.reservation.voyage.heureDep, 'HH:mm')}"></td>
+						<!--                 <td th:text="${#dates.format(payement.reservation.voyage.heureDep, 'HH:mm')}"></td>                 -->
+						<td th:text="${payement.reservation.voyage.prix}">prix</td>
+					</tr>
+
+					<tr>
+						<th>Nom</th>
+						<th>Prenom</th>
+						<th>Contact</th>
+						<th>Email</th>
+					</tr>
+					<tr>
+						<td th:text="${payement.reservation.client.nom}">Nom</td>
+						<td th:text="${payement.reservation.client.prenom}">Prenom</td>
+						<td th:text="${payement.reservation.client.tel}">Tel</td>
+						<td th:text="${payement.reservation.client.email}">Email</td>
+					</tr>
+				</table>
+
+				<input type="hidden" th:field="${payement.idpaye}" /> <input
+					type="hidden" th:field="${payement.reservation.idreservation}" />
+				<input type="hidden"
+					th:field="${payement.reservation.client.idclient}" /> <input
+					type="hidden" th:field="${payement.reservation.client.nom}" /> <input
+					type="hidden" th:field="${payement.reservation.client.prenom}" />
+				<input type="hidden" th:field="${payement.reservation.client.tel}" />
+				<input type="hidden" th:field="${payement.reservation.client.email}" />
+				<input type="hidden"
+					th:field="${payement.reservation.voyage.idvoyage}" /> <input
+					type="hidden" th:field="${payement.reservation.voyage.vDep.id}" />
+				<input type="hidden"
+					th:field="${payement.reservation.voyage.vDep.libelle}" /> <input
+					type="hidden" th:field="${payement.reservation.voyage.vAriv.id}" />
+				<input type="hidden"
+					th:field="${payement.reservation.voyage.vAriv.libelle}" /> <input
+					type="hidden" th:field="${payement.reservation.voyage.datDep}" />
+				<input type="hidden"
+					th:field="${payement.reservation.voyage.heureDep}" /> <input
+					type="hidden" th:field="${payement.reservation.voyage.prix}" />
+
+		<div class="row">
+			<div class="col-lg-5">
+				<div class="form-group col-lg-10">
+					<button type="submit" class="btn btn-default">Confirmer la
+						reservation</button>
+				</div>
+			</div>
+		</div>				
+			</div>
+		</form>
+	</div>
+
+</body>
+</html>

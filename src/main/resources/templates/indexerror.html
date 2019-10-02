@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+<title>Echec</title>
+<th:block th:include="fragments/headerinc2 :: head"></th:block>
+<style>
+body {
+	background-image: url("/images/bg_1.jpg");
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<th:block th:include="fragments/header2 :: header"></th:block>
+
+		<form th:object="${voyage}">
+
+			<div class="panel-purple">
+				<div class="row">
+					<div class="col-lg-5">
+						<div class="form-group col-lg-10">
+							<h2>Aucun voyage programme sur:</h2>
+						</div>
+					</div>
+				</div>
+				<table class="table table-striped">
+					<tr>
+						<th>Depart</th>
+						<th>Arrive</th>
+						<th>Date depart</th>
+					</tr>
+					<tr>
+						<td th:text="${voyage.vDep.libelle}">Depart</td>
+						<td th:text="${voyage.vAriv.libelle}">Arrive</td>
+						<td th:text="${#dates.format(voyage.datDep, 'dd-MM-yyyy')}"></td>
+					</tr>
+				</table>
+				<div class="row">
+					<div class="col-lg-5">
+						<div class="form-group col-lg-10">
+						<a th:href="@{/}" class="btn btn-default">Quitter</a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</form>
+	</div>
+
+</body>
+</html>

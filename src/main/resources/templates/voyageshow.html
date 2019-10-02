@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+<title>Voyage</title>
+<style>
+body {
+	background-image: url("/images/bg_1.jpg");
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+</style>
+<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+
+	<div class="container">
+		<th:block th:include="fragments/header :: header"></th:block>
+		<div class="panel-purple">
+			<form th:object="${voyage}">
+				<div>
+					<table class="table table-striped">
+						<tr>
+							<th>Ville depart</th>
+							<th>Ville arrive</th>
+							<th>Date Depart</th>
+							<th>Heure depart</th>
+						</tr>
+						<tr>
+							<td th:text="${voyage.vDep.libelle}">Depart</td>
+							<td th:text="${voyage.vAriv.libelle}">Arrive</td>
+							<td th:text="${#dates.format(voyage.datDep, 'dd-MM-yyyy')}"></td>
+							<td th:text="${#dates.format(voyage.heureDep, 'HH:mm')}"></td>
+						</tr>
+					</table>
+
+					<table class="table table-striped">
+						<tr>
+							<th>Date arrive</th>
+							<th>Prix</th>
+							<th>Capacite du bus</th>
+						</tr>
+						<tr>
+							<td th:text="${#dates.format(voyage.datAriv, 'dd-MM-yyyy')}"></td>
+							<td th:text="${voyage.prix}">Prix</td>
+							<td th:text="${voyage.nbVoy}">Prix</td>
+						</tr>
+					</table>
+
+				</div>
+			</form>
+		<div class="row">
+			<div class="col-lg-5">
+				<div class="form-group col-lg-10">
+			<a th:href="@{/voyages}" class="btn btn-default">Quitter</a>
+				</div>
+			</div>
+		</div>			
+		</div>
+
+
+	</div>
+
+</body>
+</html>

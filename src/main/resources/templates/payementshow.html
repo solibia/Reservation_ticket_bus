@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+<title>Spring Boot Exemple</title>
+<th:block th:include="fragments/headerinc :: head"></th:block>
+<style>
+body {
+	background-image: url("/images/bg_1.jpg");
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<th:block th:include="fragments/header :: header"></th:block>
+
+		<form th:object="${payement}">
+			<div class="panel-purple">
+				<h2>Reservation confirmee</h2>
+				<table class="table table-striped">
+					<tr>
+						<th>No</th>
+						<th>Depart</th>
+						<th>Arrive</th>
+						<th>Date depart</th>
+						<th>Heure</th>
+						<th>Prix</th>
+					</tr>
+					<tr>
+						<td th:text="${payement.idpaye}">No</td>
+						<td th:text="${payement.reservation.voyage.vDep.libelle}">Depart</td>
+						<td th:text="${payement.reservation.voyage.vAriv.libelle}">Arrive</td>
+						<td
+							th:text="${#dates.format(payement.reservation.voyage.datDep, 'dd-MM-yyyy')}"></td>
+						<td
+							th:text="${#dates.format(payement.reservation.voyage.heureDep, 'HH:mm')}"></td>
+						<td th:text="${payement.reservation.voyage.prix}">prix</td>
+					</tr>
+				</table>
+
+				<table class="table table-striped">
+					<tr>
+						<th>Nom</th>
+						<th>Prenom</th>
+						<th>Contact</th>
+						<th>Email</th>
+					</tr>
+					<tr>
+						<td th:text="${payement.reservation.client.nom}">Nom</td>
+						<td th:text="${payement.reservation.client.prenom}">Prenom</td>
+						<td th:text="${payement.reservation.client.tel}">Tel</td>
+						<td th:text="${payement.reservation.client.email}">Email</td>
+					</tr>
+				</table>
+				<!--        <h2>Cash:</h2> -->
+				<input type="hidden" th:field="${payement.idpaye}" />
+
+				<div class="row">
+					<div class="col-lg-5">
+						<div class="form-group col-lg-10">
+							<a th:href="@{/payements}" class="btn btn-default">Quitter</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+<title>NBTrans-Villes</title>
+
+<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+<style>
+body {
+	background-image: url("/images/bg_1.jpg");
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+		<div class="panel-purple" th:if="${not #lists.isEmpty(villes)}">
+			<h2>Liste des villes</h2>
+			<a class="btn btn-primary" href="#" th:href="@{/ville/new}">Nouveau</a>
+
+			<h2></h2>
+			<table class="table table-striped">
+				<tr>
+					<th>No</th>
+					<th>Libelle</th>
+					<th>View</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr>
+				<tr th:each="ville : ${villes}">
+					<td th:text="${ville.id}"><a href="/ville/${ville.id}">Id</a></td>
+					<td th:text="${ville.libelle}">Libelle</td>
+					<td><a th:href="${ '/ville/' + ville.id}">View</a></td>
+					<td><a th:href="${'/ville/edit/' + ville.id}">Edit</a></td>
+					<td><a th:href="${'/ville/delete/' + ville.id}">Delete</a></td>
+				</tr>
+			</table>
+
+		</div>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+<title>Spring Boot Exemple</title>
+<th:block th:include="fragments/headerinc2 :: head"></th:block>
+
+<style>
+body {
+	background-image: url("/images/bg_1.jpg");
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<th:block th:include="fragments/header2 :: header"></th:block>
+		<div id="HTMLtoPDF">
+			<form th:object="${reservation}">
+				<div class="panel-purple">
+					<div class="row">
+						<div class="col-lg-5">
+							<div class="form-group col-lg-10">
+								<h2>
+									Reservation No <label th:text="${reservation.idreservation}"></label>
+								</h2>
+							</div>
+						</div>
+					</div>
+
+
+					<table class="table table-striped">
+						<tr>
+							<th>Depart</th>
+							<th>Arrive</th>
+							<th>Date depart</th>
+							<th>Heure depart</th>
+							<th>Prix</th>
+						</tr>
+						<tr>
+							<td th:text="${reservation.voyage.vDep.libelle}">Depart</td>
+							<td th:text="${reservation.voyage.vAriv.libelle}">Arrive</td>
+							<td
+								th:text="${#dates.format(reservation.voyage.datDep, 'dd-MM-yyyy')}"></td>
+							<td
+								th:text="${#dates.format(reservation.voyage.heureDep, 'HH:mm')}"></td>
+							<td th:text="${reservation.voyage.prix}">prix</td>
+						</tr>
+					</table>
+
+					<table class="table table-striped">
+						<tr>
+							<th>Nom</th>
+							<th>Prenom</th>
+							<th>Contact</th>
+							<th>Email</th>
+						</tr>
+						<tr>
+							<td th:text="${reservation.client.nom}">Nom</td>
+							<td th:text="${reservation.client.prenom}">Prenom</td>
+							<td th:text="${reservation.client.tel}">Tel</td>
+							<td th:text="${reservation.client.email}">Email</td>
+						</tr>
+					</table>
+					<input type="hidden" th:field="${reservation.idreservation}" />
+				</div>
+
+			</form>
+		</div>
+		<div class="row">
+			<div class="col-lg-5">
+				<div class="form-group col-lg-10">
+					<a th:href="@{/}" class="btn btn-default">Quitter</a> <a href="#"
+						onclick="HTMLtoPDF()" class="btn btn-default">Billet</a>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>
